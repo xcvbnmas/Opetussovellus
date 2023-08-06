@@ -1,0 +1,18 @@
+<meta charset="UTF-8">
+
+<h2>{{ name }}</h2>
+
+
+Kurssin opettaja: {{ creator }}
+
+<p>
+
+
+{% if session.user_role == 2 %}
+<ul>
+<li> <a href="/">Lisää viesti tai ilmoitus</a>
+<li> <a href="/">Lisää tehtävä</a>
+</ul>
+{% endif %}
+
+<p><a href="/">Palaa takaisin etusivulle</a>

@@ -1,0 +1,21 @@
+<meta charset="UTF-8">
+
+<h2>Luo kurssialue</h2>
+
+
+<form action="/add" method="post">
+
+<p>Kurssin nimi:<br>
+<input type="text" name="name" minlength="1" maxlength="20"></p>
+
+
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
+
+</form>
+
+
+<p>
+<a href="/">Palaa takaisin</a>
+
+

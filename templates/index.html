@@ -1,0 +1,32 @@
+<meta charset="UTF-8">
+
+
+<h1>Opetussovellus</h1>
+
+{% if session.user_id %}
+Olet kirjautunut sisään käyttäjätunnuksella <b>{{ session.user_name }}</b>. <a href="/logout">Kirjaudu ulos</a>
+{% else %}
+Et ole tällä hetkellä kirjautunut sisään. 
+<p>
+<a href="/login">Kirjaudu</a>
+{% endif %}
+
+<p>
+
+
+{% if session.user_id %}
+<h2>Kurssit:</h2>
+<ul>
+{% for course in courses %}
+<li><a href="/course/{{ course.id }}">{{ course.name }}</a>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if session.user_role == 2 %}
+<h3>Muokkaa kursseja</h3>
+<ul>
+<li> <a href="/add">Luo kurssialue</a>
+<li> <a href="/remove">Poista kurssialue</a>
+</ul>
+{% endif %}

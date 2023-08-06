@@ -1,0 +1,22 @@
+<h2>Poista kurssialue</h2>
+
+<form action="/remove" method="post">
+
+<p>Valite kurssi, jonka haluat poistaa</p>
+
+{% for course in list %}
+
+<input type="radio" name="course" value="{{ course.id }}"> {{ course.name }} <br>
+
+{% endfor %}
+
+<p>
+
+<input type="submit" value="Poista">
+
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
+</form>
+
+<p>
+<a href="/">Palaa takaisin etusivulle</a>
