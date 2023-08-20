@@ -1,11 +1,12 @@
-from app import app
 from flask import render_template, request, redirect
 import users
-import courses
+import exercises
+import messagefunctions
+from app import app
 
 @app.route("/")
 def index():
-    return render_template("index.html", courses=courses.get_courses())
+    return render_template("index.html", exercises=exercises.get_exercises())
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -51,7 +52,7 @@ def register():
         
         
 @app.route("/add", methods=["GET", "POST"])
-def add_course():
+def add_exercise():
     users.role(2)
 
     if request.method == "GET":
@@ -61,36 +62,89 @@ def add_course():
         users.check_csrf()
 
         name = request.form["name"]
-        if len(name) < 1 or len(name) > 15:
-            return render_template("error.html", message="Nimessä tulee olla 1-15 merkkiä")
+        if len(name) < 1 or len(name) > 20:
+            return render_template("error.html", message="Nimessä tulee olla 1-20 merkkiä")
+         
+        instructions = request.form["instructions"]
+        if len(instructions) < 1:
+            return render_template("error.html", message="Lisää tehtävänanto")
+        if len(instructions) > 10000:
+            return render_template("error.html", message="Tehtävänanto on liian pitkä")
+            
+        model_answer = request.form["model_answer"] 
+        if len(model_answer) < 1:
+            return render_template("error.html", message="Lisää mallivastaus")
+        if len(model_answer) > 10000:
+            return render_template("error.html", message="Mallivastaus on liian pitkä")
 
-        course_id = courses.add_course(name, visible, users.user_id())
-        return redirect("/add")
+        exercise_id = exercises.add_exercise(name, instructions, model_answer)
+        return redirect("/")
         
         
-@app.route("/course/<int:course_id>")
-def show_course(course_id):
-    course = courses.get_course(course_id)
+@app.route("/exercise/<int:exercise_id>")
+def show_exercise(exercise_id):
+    exercise = exercises.get_exercise(exercise_id)
+    answer = exercises.get_answer(users.user_id(), exercise_id)
+    
+    user_id = users.user_id() 
+    user_answer = exercises.get_answer(exercise_id, users.user_id())
+    model_answer = exercise.model_answer
+  
+    return render_template("exercise.html", id=exercise_id, name=exercise[0], instructions=exercise[1], exercise=exercise, user_answer=user_answer, model_answer=model_answer)
+    
+@app.route("/submit_answer", methods=["POST"])
+def submit_answer():
+    users.check_csrf()  
 
-    return render_template("course.html", id=course_id, name=course[0], creator=course[1])
+    exercise_id = int(request.form["exercise_id"])
+    answer = request.form["answer"]
+
+    exercises.submit_answer(exercise_id, answer, users.user_id())
+
+    return redirect(f"/exercise/{exercise_id}")
     
     
 @app.route("/remove", methods=["GET", "POST"])
-def remove_course():
+def remove_exercise():
     users.role(2)
 
     if request.method == "GET":
-        courselist = courses.get_courses()
-        return render_template("remove.html", list=courselist)
+        exerciselist = exercises.get_exercises()
+        return render_template("remove.html", list=exerciselist)
 
     if request.method == "POST":
         users.check_csrf()
 
-        if "course" in request.form:
-            course = request.form["course"]
-            courses.remove_course(course, users.user_id())
+        if "exercise" in request.form:
+            exercise = request.form["exercise"]
+            exercises.remove_exercise(exercise, users.user_id())
 
     return redirect("/")
+    
+ 
+@app.route("/messages", methods=["GET", "POST"])
+def messages():
+    list = messagefunctions.get_list()
+    return render_template("messages.html", count=len(list), messages=list)
+
+@app.route("/new", methods=["GET", "POST"]) 
+def new():
+    if request.method == "GET":
+        return render_template("new.html")
+    
+    if request.method == "POST":
+        content = request.form["content"]
+        if messagefunctions.send(content):
+            return redirect("/messages")
+        else:
+            return render_template("error.html", message="Viestin lähetys ei onnistunut")
         
-        
+@app.route("/send", methods=["GET", "POST"])
+def send():
+    content = request.form["content"]
+    if messagefunctions.send(content):
+        return redirect("/messages")
+    else:
+        return render_template("error.html", message="Viestin lähetys ei onnistunut")
+     
         
