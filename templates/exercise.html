@@ -1,0 +1,32 @@
+<meta charset="UTF-8">
+
+<h2>{{ name }}</h2>
+
+<h3>Tehtävänanto: </h3>
+<p>
+{{ instructions }}
+
+<p>
+
+
+{% if session.user_role == 1 %}
+<form action="/submit_answer" method="post">
+    <input type="hidden" name="exercise_id" value="{{ id }}">
+    <p>Vastaus:<br>
+    <input type="text" name="answer" minlength="1" maxlength="15" value="{{ user_answer }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <input type="submit" value="Lähetä">
+</form>
+{% endif %}
+
+{% if user_answer %}
+    <h3>Vastauksesi:</h3>
+    <p>{{ user_answer.answer }}</p>
+    <h3>Mallivastaus:</h3>
+    <p>{{ exercise.model_answer }}</p>
+
+{% endif %}
+
+<p><a href="/">Palaa takaisin etusivulle</a>
+
+

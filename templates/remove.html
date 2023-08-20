@@ -1,12 +1,12 @@
-<h2>Poista kurssialue</h2>
+<h2>Poista tehtävä</h2>
 
 <form action="/remove" method="post">
 
-<p>Valite kurssi, jonka haluat poistaa</p>
+<p>Valite tehtävä, jonka haluat poistaa</p>
 
-{% for course in list %}
+{% for exercise in list %}
 
-<input type="radio" name="course" value="{{ course.id }}"> {{ course.name }} <br>
+<input type="radio" name="exercise" value="{{ exercise.id }}"> {{ exercise.name }} <br>
 
 {% endfor %}
 

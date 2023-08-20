@@ -15,18 +15,25 @@ Et ole tällä hetkellä kirjautunut sisään.
 
 
 {% if session.user_id %}
-<h2>Kurssit:</h2>
+<h2>Tehtävät:</h2>
 <ul>
-{% for course in courses %}
-<li><a href="/course/{{ course.id }}">{{ course.name }}</a>
+{% for exercise in exercises %}
+<li><a href="/exercise/{{ exercise.id }}">{{ exercise.name }}</a>
 {% endfor %}
 </ul>
 {% endif %}
 
 {% if session.user_role == 2 %}
-<h3>Muokkaa kursseja</h3>
+<h3>Muokkaa tehtäviä</h3>
 <ul>
-<li> <a href="/add">Luo kurssialue</a>
-<li> <a href="/remove">Poista kurssialue</a>
+<li> <a href="/add">Luo uusi tehtävä</a>
+<li> <a href="/remove">Poista tehvävä</a>
 </ul>
+{% endif %}
+
+<p>
+
+{% if session.user_id %}
+<h3>Viestiketju</h3>
+<a href="/messages">Siirry viestiketjuun</a>
 {% endif %}
