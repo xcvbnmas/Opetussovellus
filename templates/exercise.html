@@ -1,13 +1,19 @@
+<!doctype html>
 <meta charset="UTF-8">
 
+{% extends "layout.html" %}
+{% block title %}Tehtävä{% endblock %}
+{% block content %}
+
 <h2>{{ name }}</h2>
+
+<div class="content">
 
 <h3>Tehtävänanto: </h3>
 <p>
 {{ instructions }}
 
 <p>
-
 
 {% if session.user_role == 1 %}
 <form action="/submit_answer" method="post">
@@ -24,9 +30,10 @@
     <p>{{ user_answer.answer }}</p>
     <h3>Mallivastaus:</h3>
     <p>{{ exercise.model_answer }}</p>
-
 {% endif %}
 
 <p><a href="/">Palaa takaisin etusivulle</a>
 
+<div>
 
+{% endblock %}

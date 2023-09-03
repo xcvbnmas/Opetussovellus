@@ -1,6 +1,5 @@
 from db import db
 from sqlalchemy.sql import text
-from sqlalchemy.sql import text
 
 def get_exercises():
     sql = text("SELECT id, name FROM exercises WHERE visible=1 ORDER BY name")

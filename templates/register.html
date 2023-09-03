@@ -1,22 +1,30 @@
+<!doctype html>
 <meta charset="UTF-8">
 
+{% extends "layout.html" %}
+{% block title %}Luo tunnus{% endblock %}
+{% block content %}
+
+<div class="content">
+
 <form action="/register" method="post">
-Käyttäjätunnus: <br><input type="text" name="username" minlength="1" maxlength="20">
-<p>
-Salasana: <br><input type="password" name="password1">
-<p>
-Salasana uudestaan: <br><input type="password" name="password2">
-<p>
-Rooli:
-<select name="role">
-<option value=1> oppilas
-<option value=2> opettaja
-</select>
-<p>
-<input type="submit" value="Luo tunnus">
+  Käyttäjätunnus: <br><input type="text" name="username" minlength="1" maxlength="20">
+  <p>
+  Salasana: <br><input type="password" name="password1">
+  <p>
+  Salasana uudestaan: <br><input type="password" name="password2">
+  <p>
+   Rooli:
+  <select name="role">
+  <option value=1> oppilas
+  <option value=2> opettaja
+  </select>
+  <p>
+  <input type="submit" value="Luo tunnus">
 </form>
 
-<p>
-<a href="/login">Palaa takaisin</a>
+<p><a href="/login">Palaa takaisin</a>
 
+<div>
 
+{% endblock %}

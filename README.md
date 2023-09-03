@@ -13,7 +13,11 @@ Sovellus on yleinen opetuskäyttöön tarkoitettu sovellus, jonka avulla opettaj
 - Opiskelija näkee, mitä tehtäviä hän on suorittanut ja ovatko tehtävät ratkaistu oikein.
 
 - Sekä opettajat että opiskelijat voivat lähettää viestejä keskustelualueella.
+<<<<<<< Updated upstream
   
+=======
+
+>>>>>>> Stashed changes
 ## Sovelluksen käynnistäminen
 - Sovellus ei ole testattavissa Fly.iossa.
 ### Käynnistysohjeet 
@@ -28,9 +32,17 @@ Sovellus on yleinen opetuskäyttöön tarkoitettu sovellus, jonka avulla opettaj
      - psql < schema.sql
 - Käynnistä sovellus komennolla
      - flask run
+<<<<<<< Updated upstream
 
 ## Välipalautus 3
 Sovellukseen pystyy luomaan tunnuksen sekä kirjautumaa sisään ja ulos. Tunnusta luodessa tehdään käyttäjätunnus ja salasana, sekä valitaan rooliksi joko opettaja tai oppilas. Sisäänkirjautuneena sovelluksen etusivulla näkee listan luoduista tehtävistä. Tehtäväsivulle mennessä pystyy vastaamaan tehtävään oppilaan roolissa. Kun tehtävään on vastannut, näkyy oikea vastaus. Opettajan roolissa voi luoda uusia tehtäviä tai poistaa jo olemassa olevia. Tehtävää luodessa sille annetaan nimi, tehtävänanto sekä oikea vastaus. Lisäksi sovellukseen on lisätty viestiketju. Tällä hetkellä sovelluksesta puuttuu mahdollisuus nähdä tilastot suoritetuista tehtävistä. 
 
+=======
+ 
+## Välipalautus 2
+Tällä hetkellä sovellukseen pystyy luomaan tunnuksen sekä kirjautumaan sisään ja ulos. Tunnusta luodessa tehdään käyttäjätunnus ja salasana, sekä valitaan rooliksi joko opettaja tai oppilas.
+Sisäänkirjautuneena sovelluksen etusivulla näkee listan luoduista kursseista. Opettajan roolissa voi lisäksi luoda uuden kurssialueen tai poistaa jo olemassa olevan kurssialueen.
+Opettajan roolissa kurssialueella näkyvät toiminnot "Lisää viesti tai ilmoitus" sekä "Lisää tehtävä". En ole kuitenkaan ehtinyt toteuttaa näitä toimintoja, joten tällä hetkellä linkit johtavat takaisin etusivulle.
+>>>>>>> Stashed changes
 
 

@@ -2,11 +2,12 @@ from flask import render_template, request, redirect
 import users
 import exercises
 import messagefunctions
+import announcements
 from app import app
 
 @app.route("/")
 def index():
-    return render_template("index.html", exercises=exercises.get_exercises())
+    return render_template("index.html", exercises=exercises.get_exercises(), announcements=announcements.get_list())
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -146,5 +147,39 @@ def send():
         return redirect("/messages")
     else:
         return render_template("error.html", message="Viestin lähetys ei onnistunut")
+        
+@app.route("/add_announcement", methods=["GET", "POST"])
+def add_announcement():
+    users.role(2)
+
+    if request.method == "GET":
+        return render_template("add_announcement.html")
+
+    if request.method == "POST":
+        users.check_csrf()
+
+        content = request.form["content"]
+        if len(content) < 1:
+            return render_template("error.html", message="Lisää ilmoitus.")
+
+        announcement_id = announcements.add_announcement(content)
+        return redirect("/")
+        
+@app.route("/remove_announcement", methods=["GET", "POST"])
+def remove_announcement():
+    users.role(2)
+
+    if request.method == "GET":
+        announcementlist = announcements.get_list()
+        return render_template("remove_announcement.html", list=announcementlist)
+
+    if request.method == "POST":
+        users.check_csrf()
+
+        if "announcement" in request.form:
+            announcement_id = request.form["announcement"]  # Corrected variable name
+            announcements.remove_announcement(announcement_id)
+            
+    return redirect("/")
      
         

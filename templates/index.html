@@ -1,39 +1,72 @@
+<!doctype html>
 <meta charset="UTF-8">
 
+{% extends "layout.html" %}
+{% block title %}Etusivu{% endblock %}
+{% block content %}
 
-<h1>Opetussovellus</h1>
+<body>
 
-{% if session.user_id %}
-Olet kirjautunut sisään käyttäjätunnuksella <b>{{ session.user_name }}</b>. <a href="/logout">Kirjaudu ulos</a>
-{% else %}
-Et ole tällä hetkellä kirjautunut sisään. 
-<p>
-<a href="/login">Kirjaudu</a>
-{% endif %}
+  <h2>Etusivu</h2>
 
-<p>
+  {% if session.user_id %}
+  Olet kirjautunut sisään käyttäjätunnuksella <b>{{ session.user_name }}</b>. <a href="/logout">Kirjaudu ulos</a>
+  {% else %}
+  Et ole tällä hetkellä kirjautunut sisään. 
+  <p>
+  <a href="/login">Kirjaudu</a>
+  {% endif %}
+  <p>
 
+  {% if session.user_id %}
 
-{% if session.user_id %}
-<h2>Tehtävät:</h2>
-<ul>
-{% for exercise in exercises %}
-<li><a href="/exercise/{{ exercise.id }}">{{ exercise.name }}</a>
-{% endfor %}
-</ul>
-{% endif %}
+  <div class="content">
 
-{% if session.user_role == 2 %}
-<h3>Muokkaa tehtäviä</h3>
-<ul>
-<li> <a href="/add">Luo uusi tehtävä</a>
-<li> <a href="/remove">Poista tehvävä</a>
-</ul>
-{% endif %}
+  {% if session.user_id %}
+  <h2>Tehtävät:</h2>
+  <ul>
+  {% for exercise in exercises %}
+  <li><a href="/exercise/{{ exercise.id }}">{{ exercise.name }}</a>
+  {% endfor %}
+  </ul>
+  {% endif %}
 
-<p>
+  {% if session.user_role == 2 %}
+  <h3>Muokkaa tehtäviä</h3>
+  <ul>
+    <li> <a href="/add">Luo uusi tehtävä</a>
+    <li> <a href="/remove">Poista tehvävä</a>
+  </ul>
+  {% endif %}
 
-{% if session.user_id %}
-<h3>Viestiketju</h3>
-<a href="/messages">Siirry viestiketjuun</a>
-{% endif %}
+  <p>
+
+  {% if session.user_id %}
+  <h2>Viestiketju</h2>
+  <a href="/messages">Siirry viestiketjuun</a>
+  {% endif %}
+
+  {% if session.user_id %}
+  <h2>Ilmoitukset</h2>
+  <hr>
+  {% for announcement in announcements %}
+  <i>Ilmoitus:</i> {{ announcement[1] }}
+  <hr>
+  {% endfor %}
+  {% endif %}
+
+  {% if session.user_role == 2 %}
+  <h3>Muokkaa ilmoituksia</h3>
+  <ul>
+    <li> <a href="/add_announcement">Lisää ilmoitus</a>
+    <li> <a href="/remove_announcement">Poista ilmoitus</a>
+  <ul>
+  {% endif %}
+
+  <div>
+  
+  {% endif %}
+
+<body>
+
+{% endblock %}

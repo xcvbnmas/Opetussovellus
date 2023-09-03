@@ -27,3 +27,9 @@ CREATE TABLE messages (
     user_id INTEGER REFERENCES users,
     sent_at TIMESTAMP
 );
+
+CREATE TABLE announcements (
+    id SERIAL PRIMARY KEY,
+    content TEXT,
+    visible INTEGER
+);

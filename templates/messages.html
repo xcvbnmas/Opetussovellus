@@ -1,3 +1,11 @@
+<!doctype html>
+
+{% extends "layout.html" %}
+{% block title %}Viestiketju{% endblock %}
+{% block content %}
+
+<div class="content">
+
 <hr>
 {% for message in messages %}
 <i>Käyttäjältä</i> {{ message[1] }}
@@ -15,3 +23,6 @@
 
 <a href="/">Palaa takaisin</a>
 
+<div>
+
+{% endblock %}
