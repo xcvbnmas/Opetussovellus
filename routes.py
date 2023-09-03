@@ -46,6 +46,8 @@ def register():
         role = request.form["role"]
         if role not in ("1", "2"):
             return render_template("error.html", message="Valitse rooli")
+        if users.username_exists(username):
+            return render_template("error.html", message="Käyttäjätunnus on jo käytössä")
         if not users.register(username, password1, role):
             return render_template("error.html", message="Rekisteröinti epäonnistui")
            

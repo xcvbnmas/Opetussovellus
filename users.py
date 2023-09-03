@@ -32,6 +32,12 @@ def register(name, password, role):
     except:
         return False
     return login(name, password)
+    
+def username_exists(username):
+    sql = text("SELECT id FROM users WHERE name = :username")
+    result = db.session.execute(sql, {"username": username})
+    return result.fetchone() is not None
+
 
 def user_id():
     return session.get("user_id", 0)
