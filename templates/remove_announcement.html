@@ -1,0 +1,25 @@
+<!doctype html>
+
+{% extends "layout.html" %}
+{% block title %}Poista ilmoitus{% endblock %}
+{% block content %}
+
+<h2>Poista ilmoitus</h2>
+
+<div class="content">
+
+<form action="/remove_announcement" method="post">
+  <p>Valite ilmoitus, jonka haluat poistaa</p>
+  {% for announcement in list %}
+  <input type="radio" name="announcement" value="{{ announcement.id }}"> {{ announcement.content }} <br>
+  {% endfor %}
+  <p>
+  <input type="submit" value="Poista">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+
+<p><a href="/">Palaa takaisin etusivulle</a>
+
+<div>
+
+{% endblock %}
